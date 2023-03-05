@@ -1,0 +1,75 @@
+il est possible que les pipelines de science des données contiennent des erreurs qui peuvent conduire à des modèles de faible qualité en production.
+
+ Cela peut arriver si des données sont involontairement utilisées à la fois pour l'entraînement et les tests, ce qui conduit à une surestimation de l'exactitude du modèle. 
+
+Pour résoudre ce problème, les auteurs ont développé une approche d'analyse statique pour détecter les fuites de données dans le code de science des données. Ils ont constaté que cette approche était efficace pour détecter les fuites de données et qu'il était important de prévenir ces fuites dès le processus de développement. 
+
+Cette approche peut aider les praticiens et les éducateurs à détecter et à éviter les fuites de données dans leurs modèles de science des données.
+
+
+
+Est-ce qu'un modèle de machine learning prometteur fonctionnera lorsqu'il sera déployé en production ? 
+En général, cette question est répondue en comparant les prédictions du modèle aux résultats attendus sur des données de test. Cependant, les estimations de précision qui en découlent peuvent être trompeuses si le modèle fonctionne bien sur les données de test, mais beaucoup moins bien en production. 
+
+Une cause fréquente est que les données utilisées pour les tests ne sont pas suffisamment représentatives des données de production, fournissant ainsi des estimations trompeuses sur la mauvaise distribution de données. 
+Une autre cause, et l'objet de cet article, est que les données de test ont été utilisées sous une forme ou une autre pendant la formation du modèle (directement ou indirectement, intentionnellement ou accidentellement), permettant au modèle de sur-adapter les données de test et produire des estimations de précision irréalistes et trop optimistes. 
+
+
+Dans cet article, nous concevons une approche d'analyse statique pour détecter les cas où la formation du modèle utilise des données de test dans le code de science des données, communément appelé fuite de données.
+
+La fuite de données est souvent le résultat de pratiques médiocres (bad practice code smells ) lors de l'écriture de code d'apprentissage automatique, allant des erreurs évidentes, telles que l'inclusion de données de test dans les données d'entraînement, aux erreurs plus subtiles qui divulguent des informations sur la distribution de données de test par le biais du prétraitement avant l'entraînement. Par exemple, dans la Fig. 1, nous montrons un code de science des données signalant avec confiance la présence de modèles dans des données aléatoires où le modèle ne devrait pas mieux faire qu'un choix aléatoire : parce que les décisions prises pendant la formation dépendent à la fois des données d'entraînement et de test (sélection de fonctionnalités, Ligne 9), le modèle s'adapte trop bien aux données de test et les résultats d'évaluation rapportent des scores de précision significativement surestimés. Notre analyse souligne les pièges courants dans l'évaluation de la précision du modèle, comme celui de notre exemple, qui, comme nous le montrerons, sont répandus dans le code de science des données dans les notebooks publics.
+
+SURAJUSTEMENT ET FUITES DE DONNÉES EN APPRENTISSAGE MACHINE
+L'apprentissage machine est la discipline qui consiste à apprendre des connaissances généralisables à partir de données, généralement sous la forme d'une fonction apprise appelée modèle, qui peut faire des prédictions pour des données inconnues (par exemple, des données de production). Les développeurs qui construisent des modèles avec des techniques d'apprentissage machine suivent généralement un processus itératif et exploratoire [20], qui est souvent représenté comme un pipeline de plusieurs étapes avec des boucles de rétroaction, comprenant des activités telles que la collecte de données, le nettoyage des données, l'ingénierie des fonctionnalités, l'entraînement du modèle, l'évaluation du modèle et le déploiement du modèle [2].
+
+Dans le développement de modèles, il y a toujours le risque que le modèle entraîné sur les données d'entraînement fasse du surajustement sur ces données [37] - c'est-à-dire qu'il apprend les modèles spécifiques aux données d'entraînement mais généralise mal aux données inconnues. Par conséquent, il est courant d'évaluer l'exactitude d'un modèle sur des données qui n'ont pas été précédemment utilisées pour l'entraînement [37] - l'évaluation mesure dans quelle mesure le modèle prédit les résultats attendus pour des données inconnues. Pour que l'évaluation fournisse une approximation significative de l'exactitude du modèle dans les environnements de production, les données inconnues doivent être représentatives de la distribution des données réelles rencontrées en production.
+
+Le surajustement peut se produire chaque fois qu'une connaissance est acquise à partir de données, que ce soit (a) un algorithme d'apprentissage machine qui apprend les paramètres du modèle à partir des données ou (b) un humain qui examine les données pour prendre des décisions sur la façon de traiter les données ou sur l'algorithme d'apprentissage machine à utiliser. Plus important encore, en raison de la nature itérative du développement de modèles, il est courant d'évaluer différentes variantes d'un modèle pour voir si l'exactitude s'améliore avec différentes décisions (par exemple, différentes techniques d'ingénierie des fonctionnalités, différents algorithmes d'apprentissage machine, différents hyperparamètres; certaines de ces explorations peuvent également être automatisées à l'aide d'approches AutoML [11]). Si les décisions sont basées sur une évaluation antérieure, les données utilisées dans cette évaluation ont influencé le processus d'entraînement et le modèle peut y faire du surajustement.
+
+En résumé, si nous évaluons le modèle sur des données qui ont été utilisées de quelque manière que ce soit (automatiquement ou manuellement, directement ou indirectement) dans le processus sociotechnique utilisé pour l'entraînement du modèle, le résultat de l'évaluation peut être trop optimiste car le modèle peut y faire du surajustement. D'un point de vue technique, nous voulons une garantie de non-interférence dans laquelle le processus de formation du modèle est entièrement indépendant des données sur lesquelles le modèle est évalué.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Le code sur lequel vous avez partagé le lien GitHub semble être un outil pour détecter les fuites de données dans les ensembles de données de machine learning.
+
+Il contient plusieurs exemples illustrant différents types de fuites de données qui peuvent survenir dans les ensembles de données de machine learning, tels que les fuites de données de temps, les fuites de données de prétraitement, les fuites de données de regroupement, etc.
+
+Le code fournit également des instructions détaillées sur la façon d'utiliser l'outil pour détecter ces fuites de données. Il utilise des bibliothèques populaires de Python pour le prétraitement des données et la construction de modèles, telles que Pandas, Scikit-learn, XGBoost, etc.
+
+En utilisant cet outil, les praticiens de l'apprentissage automatique peuvent évaluer leurs ensembles de données pour détecter toute fuite de données potentielle et prendre des mesures pour éviter que ces fuites ne biaisent les résultats de leur modèle.
+
+En résumé, le code sur lequel vous avez partagé le lien GitHub semble être un outil utile pour les praticiens de l'apprentissage automatique qui souhaitent détecter les fuites de données dans leurs ensembles de données et construire des modèles plus robustes et plus précis.
+
+
+
+
+
