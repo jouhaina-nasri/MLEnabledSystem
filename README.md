@@ -20,4 +20,5 @@ The project consists of :
 * [__PreprocessingLeakage__](PreprocessingLeakage.ipynb)  - is a Jupyter Notebook file can be used to avoid preprocessing leakage.
 * [__TestTraining__](TestTraining.ipynb)  - is a Jupyter Notebook file can be used to avoid including test Data in the training data.
 * [__VagueNames__](VagueNames.ipynb)  - is a Jupyter Notebook file can be used to avoid vague names.
+* [__IndependenceTest__](IndependenceTest.ipynb)  - is a Jupyter Notebook file can be used to avoid dependent test data.
 -----
