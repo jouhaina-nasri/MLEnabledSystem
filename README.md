@@ -1,24 +1,16 @@
 # MLEnabledSystem
 Anti-Patterns in Developing ML-Enabled Systems and How to Avoid Them
 ---
-The project consists of :
-* [__BadImports__](BadImports.ipynb) - is a Jupyter Notebook file can be used to avoid bad imports.
-* [__BooleanParameters__](BooleanParameters.ipynb) - is a Jupyter Notebook file can be used to avoid passing booleans to functions.
-* [__ClassesUnnecessarily__](ClassesUnnecessarily.ipynb)  - is a Jupyter Notebook file can be used to avoid using classes that should just be functions or modules
-* [__CodeDuplication__](CodeDuplication.ipynb)  - is a Jupyter Notebook file can be used to avoid duplication code.
-* [__CommentClutter__](CommentClutter.ipynb)  - is a Jupyter Notebook file can be used to avoid using comments inside a method.
-* [__DictionaryMisuse__](DictionaryMisuse.ipynb)  - is a Jupyter Notebook file can be used to avoid incorrect usage of the .keys() and .values() methods with dictionaries.
-* [__ErrorHandling__](ErrorHandling.ipynb)  - is a Jupyter Notebook file can be used to avoid not specifying the exception in the 'except' clause.
-* [__GlobalVariable__](GlobalVariable.ipynb)  - is a Jupyter Notebook file can be used to avoid global variable.
-* [__ImmutableDefaults__](ImmutableDefaults.ipynb)  - is a Jupyter Notebook file can be used to avoid mutable defaults.
-* [__LimitOutputs__](LimitOutputs.ipynb)  - is a Jupyter Notebook file can be used to avoid using excessive display of irrelevant outputs or graphs.
-* [__LongCells__](LongCells.ipynb)  - is a Jupyter Notebook file can be used to avoid long cells.
-* [__MagicNumbers__](MagicNumbers.ipynb)  - is a Jupyter Notebook file can be used to avoid magic numbers.
-* [__MarkdownCells__](MarkdownCells.ipynb)  - is a Jupyter Notebook file can be used to avoid not taking advantage of markdown cells.
-* [__MultiTest__](MultiTest.ipynb)  - is a Jupyter Notebook file can be used to avoid multi-Test leakage.
-* [__NestedList__](NestedList.ipynb)  - is a Jupyter Notebook file can be used to avoid using nested list comprehensions.
-* [__PreprocessingLeakage__](PreprocessingLeakage.ipynb)  - is a Jupyter Notebook file can be used to avoid preprocessing leakage.
-* [__TestTraining__](TestTraining.ipynb)  - is a Jupyter Notebook file can be used to avoid including test Data in the training data.
-* [__VagueNames__](VagueNames.ipynb)  - is a Jupyter Notebook file can be used to avoid vague names.
-* [__IndependenceTest__](IndependenceTest.ipynb)  - is a Jupyter Notebook file can be used to avoid dependent test data.
+The project consists of:
+* [__architecture__](architecture) -  This folder contains the schematic diagram of our study (In progress).
+* [__boxplot__](boxplot) - This folder contains box plots illustrating the distribution of various metrics.
+* [__collect_data__](collect_data)  - This folder is used to collect the repositories, and then collect the Jupyter files.
+* [__data__](data)  - This folder represents our data.
+* [__extract_code__](extract_code)  -  This folder contains code used to extract the data. This code helps us to fill the manual labeling, instead of searching for files to find the desired cells. We can use this code by providing the input file path and the cell number.
+* [__manual_labeling__](manual_labeling)  - This folder contains the file of manual labeling, used to validate our tool.
+* [__metrics__](metrics)  -  This folder contains CSV files of metrics necessary to detect code smells.
+* [__parser__](parser)  - This folder contains Python files used to extract the necessary metrics.
+* [__precision_recall__](precision_recall)  - This folder contains code used to calculate precision and recall for our tool (In progress).
+* [__randomly_collect_data__](randomly_collect_data)  - This folder contains R code used to randomly collect the data to be used in manual labeling.
+* [__tool__](tool)  -  This code is for our tool (In progress).
 -----
